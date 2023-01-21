@@ -1,0 +1,23 @@
+name: "Go Security Scan"
+
+on:
+  workflow_call:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v2
+      - name: Run Gosec Security Scanner
+        uses: securego/gosec@master
+        with:
+          args: '-no-fail -fmt html -out gosec.results.html ./...'
+      - name: Upload Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: gosec.results.html
+          path: gosec.results.html
+          retention-days: 7
