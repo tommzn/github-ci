@@ -2,6 +2,11 @@ name: "Go Security Scan"
 
 on:
   workflow_call:
+    secrets:
+      slack-channel:
+        required: true
+      slack-webhook:
+        required: true
 
 jobs:
   tests:
@@ -9,12 +14,24 @@ jobs:
     env:
       GO111MODULE: on
     steps:
+      - name: Get Env
+        run: env
       - name: Checkout Source
         uses: actions/checkout@v2
       - name: Run Gosec Security Scanner
+        continue-on-error: true
         uses: securego/gosec@master
         with:
-          args: '-no-fail -fmt html -out gosec.results.html ./...'
+          args: '-fmt=html -out=gosec.results.html -stdout -verbose=text ./...'
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: ${{ secrets.slack-channel }}
+          SLACK_COLOR: '#ff0000'
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
+          SLACK_MESSAGE: "GoSec faild!"
+          SLACK_TITLE: "Go Vulnerability Detected"
+          SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
       - name: Upload Report
         uses: actions/upload-artifact@v2
         with:
