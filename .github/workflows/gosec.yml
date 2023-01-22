@@ -22,7 +22,7 @@ jobs:
         with:
           args: '-fmt=html -out=gosec.results.html -stdout -verbose=text ./...'
       - name: Slack Notification
-        if: failed()
+        if: failure()
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: ${{ secrets.slack-channel }}
