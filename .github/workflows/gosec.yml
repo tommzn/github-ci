@@ -22,13 +22,13 @@ jobs:
         with:
           args: '-fmt=html -out=gosec.results.html -stdout -verbose=text ./...'
       - name: Slack Notification
+        if: failed()
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: ${{ secrets.slack-channel }}
           SLACK_COLOR: '#ff0000'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
           SLACK_TITLE: "Go Vulnerability Detected"
-          SLACK_MESSAGE: "Repository: ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}"
           SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
           SLACK_USERNAME: "GoSec Scan"
           MSG_MINIMAL: actions url
