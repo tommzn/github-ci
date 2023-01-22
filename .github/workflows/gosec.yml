@@ -14,8 +14,6 @@ jobs:
     env:
       GO111MODULE: on
     steps:
-      - name: Get Env
-        run: env
       - name: Checkout Source
         uses: actions/checkout@v2
       - name: Run Gosec Security Scanner
@@ -30,7 +28,7 @@ jobs:
           SLACK_COLOR: '#ff0000'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
           SLACK_TITLE: "Go Vulnerability Detected"
-          SLACK_MSSAGE: "Repository: ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}"
+          SLACK_MESSAGE: "Repository: ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}"
           SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
           SLACK_USERNAME: "GoSec Scan"
           MSG_MINIMAL: actions url
