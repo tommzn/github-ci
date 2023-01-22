@@ -21,14 +21,13 @@ jobs:
         uses: securego/gosec@master
         with:
           args: '-fmt=html -out=gosec.results.html -stdout -verbose=text ./...'
-      - name: Slack Notification
+      - name: Slack GoSec Notification
         if: failure()
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: ${{ secrets.slack-channel }}
           SLACK_COLOR: '#ff0000'
-          SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_TITLE: "Go Vulnerability Detected"
+          SLACK_TITLE: "GoSec failed!"
           SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
           SLACK_USERNAME: "GoSec Scan"
           MSG_MINIMAL: actions url
@@ -38,3 +37,19 @@ jobs:
           name: gosec.results.html
           path: gosec.results.html
           retention-days: 7
+      - name: Setup Go
+        uses: actions/checkout@v3
+      - name: Go Vulnerability Check 
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          govulncheck ./...
+      - name: Slack Vulnerability Notification
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: ${{ secrets.slack-channel }}
+          SLACK_COLOR: '#ff0000'
+          SLACK_TITLE: "Go Vulnerability Detected!"
+          SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
+          SLACK_USERNAME: "GoVulncheck"
+          MSG_MINIMAL: actions url
