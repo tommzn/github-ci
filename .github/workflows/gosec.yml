@@ -38,7 +38,9 @@ jobs:
           path: gosec.results.html
           retention-days: 7
       - name: Setup Go
-        uses: actions/checkout@v3
+        uses: actions/setup-go@v3
+        with:
+          go-version: 'stable'
       - name: Go Vulnerability Check 
         run: |
           go install golang.org/x/vuln/cmd/govulncheck@latest
