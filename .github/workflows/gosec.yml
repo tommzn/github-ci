@@ -29,9 +29,11 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.slack-channel }}
           SLACK_COLOR: '#ff0000'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: "GoSec faild!"
           SLACK_TITLE: "Go Vulnerability Detected"
+          SLACK_MSSAGE: "Repository: ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}"
           SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
+          SLACK_USERNAME: "GoSec Scan"
+          MSG_MINIMAL: actions url
       - name: Upload Report
         uses: actions/upload-artifact@v2
         with:
