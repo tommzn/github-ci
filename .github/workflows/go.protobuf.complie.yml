@@ -28,6 +28,9 @@ jobs:
           export PATH=$PATH:$GOPATH
           export PATH=$PATH:$GOBIN
           export GO111MODULE=on
+          echo $GOPATH 
+          echo $GOBIN
+          echo $PATH 
       - name: Checkout Protobuf event defs
         uses: actions/checkout@v2
         with:
