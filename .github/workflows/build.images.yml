@@ -12,7 +12,7 @@ jobs:
         matrix:
             dockerfile:
               - images/protobuf-compiler-go
-              - images/protobuf-compiler-go-alpine
+              #- images/protobuf-compiler-go-alpine
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -29,6 +29,6 @@ jobs:
           file: ${{ matrix.dockerfile }}
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/ci/${{ matrix.dockerfile }}:latest
+            ghcr.io/${{ github.repository }}/${{ matrix.dockerfile }}:latest
   
   

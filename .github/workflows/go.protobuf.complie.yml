@@ -11,7 +11,11 @@ jobs:
   compile-go:
     name: Compile for Golang
     runs-on: ubuntu-latest
-    container: drizzt99/communication-service 
+    container: 
+      image: ghcr.io/tommzn/github-ci/images/protobuf-compiler-go
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.cr-pat }}
     steps:
       - name: Protoc Version
         run: |
