@@ -20,10 +20,14 @@ jobs:
       - name: Protoc Version
         run: |
           protoc --version 
-          which protoc
           go version
-          echo $GOPATH 
-          echo $GOBIN
+      - name: Go Env Setup
+        run: |
+          export GOPATH=/root/go
+          export GOBIN=$(go env GOPATH)/bin
+          export PATH=$PATH:$GOPATH
+          export PATH=$PATH:$GOBIN
+          export GO111MODULE=on
       - name: Checkout Protobuf event defs
         uses: actions/checkout@v2
         with:
