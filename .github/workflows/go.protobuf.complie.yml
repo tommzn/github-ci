@@ -20,6 +20,8 @@ jobs:
       - name: Protoc Version
         run: |
           protoc --version 
+          echo $GOPATH 
+          echo $GOBIN
       - name: Checkout Protobuf event defs
         uses: actions/checkout@v2
         with:
