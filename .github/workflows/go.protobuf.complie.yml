@@ -1,0 +1,25 @@
+
+name: Golang Protobuf Compile
+on:
+  workflow_call:
+    secrets:
+      cr-pat:
+        description: 'Personal access token'
+        required: true
+
+jobs:
+  compile-go:
+    name: Compile for Golang
+    runs-on: ubuntu-latest
+    container: drizzt99/communication-service 
+    steps:
+      - name: Protoc Version
+        run: |
+          protoc --version 
+      - name: Checkout Protobuf event defs
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - name: Compile
+        run: protoc --go_out=./ *.proto
+        
