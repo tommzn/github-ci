@@ -1,10 +1,8 @@
 FROM ubuntu:23.04
 
-
 RUN apt-get update; apt-get install -y ca-certificates openssl golang protobuf-compiler
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
 
-RUN echo "export export GOROOT=/usr/local/go" >> /etc/profile
 RUN echo "export export GOPATH=/root/go" >> /etc/profile
 RUN echo "export export GOBIN=/root/go/bin" >> /etc/profile
-RUN echo "export export PATH=$PATH:/usr/local/go:/root/go:/root/go/bin" >> /etc/profile
+RUN echo "export export PATH=$PATH:/root/go:/root/go/bin" >> /etc/profile
