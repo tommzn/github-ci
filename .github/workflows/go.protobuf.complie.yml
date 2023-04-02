@@ -27,9 +27,5 @@ jobs:
           ref: ${{ github.ref }}
       - name: Compile
         run: |
-          export GOROOT=/usr/local/go
-          export GOPATH=/root/go
-          export GOBIN=$GOPATH/bin
-          export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
           protoc --go_out=./ *.proto
         
