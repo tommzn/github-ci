@@ -36,5 +36,10 @@ jobs:
         with:
           ref: ${{ github.ref }}
       - name: Compile
-        run: protoc --go_out=./ *.proto
+        run: |
+          echo $GOPATH 
+          echo $GOBIN
+          echo $PATH 
+          which protoc-gen-go
+          protoc --go_out=./ *.proto
         
