@@ -24,7 +24,7 @@ jobs:
       - name: Go Env Setup
         run: |
           export GOROOT=/usr/local/go
-          export GOPATH=$HOME/go
+          export GOPATH=/root/go
           export GOBIN=$GOPATH/bin
           export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
           echo $GOPATH 
