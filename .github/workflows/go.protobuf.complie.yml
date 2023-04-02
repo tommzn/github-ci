@@ -12,7 +12,7 @@ jobs:
     name: Compile for Golang
     runs-on: ubuntu-latest
     container: 
-      image: ghcr.io/tommzn/github-ci/images/protobuf-compiler-go
+      image: ghcr.io/tommzn/github-ci/images/protobuf-compiler-go-alpine
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.cr-pat }}
