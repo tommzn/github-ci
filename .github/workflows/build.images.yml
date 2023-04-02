@@ -12,6 +12,7 @@ jobs:
         matrix:
             dockerfile:
               - images/protobuf-compiler-go
+              - images/protobuf-compiler-go-alpine
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
