@@ -21,25 +21,15 @@ jobs:
         run: |
           protoc --version 
           go version
-      - name: Go Env Setup
-        run: |
-          export GOROOT=/usr/local/go
-          export GOPATH=/root/go
-          export GOBIN=$GOPATH/bin
-          export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
-          echo $GOPATH 
-          echo $GOBIN
-          echo $PATH 
-          which protoc-gen-go
       - name: Checkout Protobuf event defs
         uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
       - name: Compile
         run: |
-          echo $GOPATH 
-          echo $GOBIN
-          echo $PATH 
-          which protoc-gen-go
+          export GOROOT=/usr/local/go
+          export GOPATH=/root/go
+          export GOBIN=$GOPATH/bin
+          export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
           protoc --go_out=./ *.proto
         
