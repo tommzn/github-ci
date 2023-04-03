@@ -10,7 +10,10 @@ on:
         description: 'Slack channel id a success/error message should be send to.'
         required: false
       slack-webhook:
-        description: 'Slack webhick for publishing messages.'
+        description: 'Slack webhock for publishing messages.'
+        required: false
+      slack-bottoken:
+        description: 'Slack bot toekn for publishing messages.'
         required: false
     inputs:
       upload-artifact:
@@ -39,20 +42,72 @@ jobs:
           protoc --go_out=./ *.proto
       - name: Send Slack Message (Failed)
         if: failure()
-        uses: rtCamp/action-slack-notify@v2
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: ${{ secrets.slack-channel }}
+          payload: |
+            {
+              "text": "Protobuf Compile: ${{ job.status }}",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": ":x: Protobuf Compile: ${{ job.status }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Ref: ${{ github.ref }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                }
+              ]
+            }
         env:
-          SLACK_CHANNEL: ${{ secrets.slack-channel }}
-          SLACK_COLOR: job.status
-          SLACK_TITLE: "Go Protobuf Compile failed!"
-          SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
+          SLACK_BOT_TOKEN: ${{ secrets.slack-bottoken }}
       - name: Send Slack Message (Success)
         if: success()
-        uses: rtCamp/action-slack-notify@v2
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: ${{ secrets.slack-channel }}
+          payload: |
+            {
+              "text": "Protobuf Compile: ${{ job.status }}",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": ":white_check_mark: Protobuf Compile: ${{ job.status }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Ref: ${{ github.ref }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                }
+              ]
+            }
         env:
-          SLACK_CHANNEL: ${{ secrets.slack-channel }}
-          SLACK_COLOR: job.status
-          SLACK_TITLE: "Go Protobuf Compile successful!"
-          SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
+          SLACK_BOT_TOKEN: ${{ secrets.slack-bottoken }}
       - name: Upload Golang artifacts
         if: inputs.upload-artifact
         uses: actions/upload-artifact@v2
