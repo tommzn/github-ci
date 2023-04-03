@@ -60,7 +60,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ github.repository }}"
+                    "text": "<${{ github.server_url }}/${{ github.repository }}|${{ github.repository }}>"
                   }
                 },
                 {
@@ -104,7 +104,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ github.repository }}"
+                    "text": "<${{ github.server_url }}/${{ github.repository }}|${{ github.repository }}>"
                   }
                 },
                 {
