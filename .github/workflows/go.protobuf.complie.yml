@@ -6,6 +6,12 @@ on:
       cr-pat:
         description: 'Personal access token'
         required: true
+      slack-channel:
+        description: 'Slack channel id a success/error message should be send to.'
+        required: false
+      slack-webhook:
+        description: 'Slack webhick for publishing messages.'
+        required: false
     inputs:
       upload-artifact:
         type: boolean
@@ -31,6 +37,22 @@ jobs:
       - name: Compile
         run: |
           protoc --go_out=./ *.proto
+      - name: Send Slack Message (Failed)
+        if: failure() && secrets.slack-webhook
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: ${{ secrets.slack-channel }}
+          SLACK_COLOR: job.status
+          SLACK_TITLE: "Go Protobuf Compile failed!"
+          SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
+      - name: Send Slack Message (Success)
+        if: success() && secrets.slack-webhook
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: ${{ secrets.slack-channel }}
+          SLACK_COLOR: job.status
+          SLACK_TITLE: "Go Protobuf Compile successful!"
+          SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
       - name: Upload Golang artifacts
         if: inputs.upload-artifact
         uses: actions/upload-artifact@v2
