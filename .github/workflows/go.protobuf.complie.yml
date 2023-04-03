@@ -64,17 +64,13 @@ jobs:
                   }
                 },
                 {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View at GitHub Actions>"
-                  }
+                  "type": "divider"
                 },
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Commit: <${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}>"
+                    "text": "<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View at GitHub Actions> | <${{ github.event.head_commit.url }}|Commit: ${{ github.event.head_commit.id }}>"
                   }
                 }
               ]
@@ -105,17 +101,13 @@ jobs:
                   }
                 },
                 {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View at GitHub Actions>"
-                  }
+                  "type": "divider"
                 },
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Commit: <${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}>"
+                    "text": "<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View at GitHub Actions> | <${{ github.event.head_commit.url }}|Commit: ${{ github.event.head_commit.id }}>"
                   }
                 }
               ]
