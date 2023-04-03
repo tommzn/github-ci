@@ -38,7 +38,7 @@ jobs:
         run: |
           protoc --go_out=./ *.proto
       - name: Send Slack Message (Failed)
-        if: failure() && ${{ secrets.slack-webhook != '' }}
+        if: failure()
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: ${{ secrets.slack-channel }}
@@ -46,7 +46,7 @@ jobs:
           SLACK_TITLE: "Go Protobuf Compile failed!"
           SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
       - name: Send Slack Message (Success)
-        if: success() && ${{ secrets.slack-webhook != '' }}
+        if: success()
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: ${{ secrets.slack-channel }}
