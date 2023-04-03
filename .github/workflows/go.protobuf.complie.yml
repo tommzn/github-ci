@@ -6,6 +6,9 @@ on:
       cr-pat:
         description: 'Personal access token'
         required: true
+    inputs:
+      upload-artifact:
+        type: boolean
 
 jobs:
   compile-go:
@@ -28,4 +31,12 @@ jobs:
       - name: Compile
         run: |
           protoc --go_out=./ *.proto
+      - name: Upload Golang artifacts
+        if: inputs.upload-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: golang-events
+          path: ./*.pb.go
+          retention-days: 1
+        
         
