@@ -60,14 +60,21 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Ref: ${{ github.ref }}"
+                    "text": "${{ github.ref_type }}: ${{ github.ref_name }}"
                   }
                 },
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Action: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    "text": "<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View at GitHub Actions>"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Commit: <${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}>"
                   }
                 }
               ]
@@ -94,14 +101,21 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Ref: ${{ github.ref }}"
+                    "text": "${{ github.ref_type }}: ${{ github.ref_name }}"
                   }
                 },
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Action: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    "text": "<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View at GitHub Actions>"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Commit: <${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}>"
                   }
                 }
               ]
