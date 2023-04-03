@@ -60,6 +60,13 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
+                    "text": "${{ github.repository }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
                     "text": "${{ github.ref_type }}: ${{ github.ref_name }}"
                   }
                 },
@@ -91,6 +98,13 @@ jobs:
                   "text": {
                     "type": "plain_text",
                     "text": ":white_check_mark: Protobuf Compile: ${{ job.status }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "${{ github.repository }}"
                   }
                 },
                 {
