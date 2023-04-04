@@ -54,10 +54,11 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.slack-channel }}
           SLACK_COLOR: ${{ job.status }}
           SLACK_TITLE: "Protobuf Compile: ${{ job.status }}"
+          SLACK_MESSAGE: "${{ job.status }} on protobuf compile for ${{ github.ref_type }}: ${{ github.ref_name }}"
           SLACK_USERNAME: ${{ github.actor }}
-          SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
-          SLACK_FOOTER: "${{ github.ref_type }}: ${{ github.ref_name }}"
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           MSG_MINIMAL: event,actions url,commit 
+
       
         
         
