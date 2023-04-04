@@ -56,7 +56,7 @@ jobs:
           SLACK_TITLE: "Protobuf Compile: ${{ job.status }}"
           SLACK_MESSAGE: "${{ job.status }} on protobuf compile for ${{ github.ref_type }}: ${{ github.ref_name }}"
           SLACK_USERNAME: ${{ github.actor }}
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.slack-webhook }}
           MSG_MINIMAL: event,actions url,commit 
 
       
