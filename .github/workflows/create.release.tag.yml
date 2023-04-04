@@ -23,7 +23,6 @@ jobs:
           name: ${{ github.ref_name }}
           body: |
             Release ${{ github.ref_name }} (auto generated)
-          body_path: ${{ github.workspace }}-CHANGELOG.txt
           token: ${{ secrets.cr-pat }}
           
           
