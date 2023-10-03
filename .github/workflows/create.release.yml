@@ -21,7 +21,6 @@ jobs:
           name: ${{ github.ref }}
           body: |
             Release ${{ github.ref }} (auto generated)
-          body_path: ${{ github.workspace }}-CHANGELOG.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           
           
