@@ -1,8 +1,6 @@
 name: Go Package Release
 on:
   workflow_call:
-permissions:
-  contents: write
 
 jobs:
   test:
