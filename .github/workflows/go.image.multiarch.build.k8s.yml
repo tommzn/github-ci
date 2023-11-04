@@ -29,7 +29,7 @@ jobs:
       - name: Release build
         uses: docker/build-push-action@v4
         with:
-          working-context: ./k8s
+          context: ./k8s
           outputs: "type=registry,push=true"
           provenance: false
           platforms: linux/amd64,linux/arm64
