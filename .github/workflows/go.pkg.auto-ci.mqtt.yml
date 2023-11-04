@@ -5,10 +5,7 @@ on:
 jobs:
   test:
     name: Go Tests
-    strategy:
-      matrix:
-        platform: [ubuntu-latest]
-    runs-on: ${{ matrix.platform }}
+    runs-on: ubuntu-latest
     services:
       mqtt:
         image: eclipse-mosquitto:1.6
@@ -16,25 +13,23 @@ jobs:
           - 1883:1883
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Get Go version
         run: echo "goversion=`egrep -i '^go [1-2][.][0-9]+$' go.mod | sed 's/go //' | sed 's/$/.x/'`" >> $GITHUB_ENV
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v4
         with:
           go-version: ${{ env.goversion }}
       - name: Run tests
         run: go test -v  -covermode=count ./...
-        env:
-          OWM_API_KEY: ${{ secrets.OWM_API_KEY }}
-
+        
   release:
     name: Go Package Release
     needs: [test]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - uses: go-semantic-release/action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
