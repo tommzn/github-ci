@@ -3,6 +3,10 @@ name: Multi Arch Image Build
 
 on:
   workflow_call:
+    secrets:
+      cr-pat:
+        description: 'Personal access token'
+        required: true
     
 jobs:
   image_build:
@@ -24,7 +28,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.cr-pat }}
 
       - name: Release build
         uses: docker/build-push-action@v4
