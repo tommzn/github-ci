@@ -36,7 +36,7 @@ jobs:
           context: ./k8s
           outputs: "type=registry,push=true"
           provenance: false
-          platforms: linux/amd64,linux/arm64,darwin/amd64,darwin/arm64
+          platforms: linux/amd64,linux/arm64
           build-args: |
             Version=${{ env.VERSION_TAG }}
             GitCommit=${{ github.sha }}
