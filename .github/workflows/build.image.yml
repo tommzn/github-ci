@@ -9,7 +9,7 @@ on:
 
 jobs:
   go-build:
-    name: Go Binary & Image Build
+    name: Image Build
     runs-on: ubuntu-latest
     steps:
       - name: Set version tag
