@@ -5,7 +5,8 @@ This repository provides reusable workflows for Github actions to other projects
 
 ## Revision Log
 
-### v1.0.81
-- go.pkg.auto-ci-with-coveralls.yml
+### v1.0.82
+- go.pkg.auto-ci-with-coveralls.yml. fix environment settings
 
-Add Postgres services for tests.
+### v1.0.81
+- go.pkg.auto-ci-with-coveralls.yml, add Postgres services for tests
