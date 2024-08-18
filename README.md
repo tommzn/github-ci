@@ -7,4 +7,5 @@ This repository provides reusable workflows for Github actions to other projects
 
 ### v1.0.81
 - go.pkg.auto-ci-with-coveralls.yml
+
 Add Postgres services for tests.
