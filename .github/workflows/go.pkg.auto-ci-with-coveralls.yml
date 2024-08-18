@@ -9,7 +9,7 @@ jobs:
     services:
       postgres: # We'll provide a switch to conditional enable services after https://github.com/actions/runner/issues/822 has been implemented.
         image: postgres
-        environment:
+        env:
           POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
