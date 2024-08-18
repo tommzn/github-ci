@@ -6,6 +6,13 @@ jobs:
   test:
     name: Go Tests
     runs-on: ubuntu-latest
+    services:
+      postgres: # We'll provide a switch to conditional enable services after https://github.com/actions/runner/issues/822 has been implemented.
+        image: postgres
+        environment:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
