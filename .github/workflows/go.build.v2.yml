@@ -14,7 +14,7 @@ on:
       
 jobs:
   go-build:
-    name: Go Test & Binary Build
+    name: Go Binary Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -30,7 +30,7 @@ jobs:
         run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -v -o ${{ inputs.artifact-name }}
         working-directory: ${{ inputs.work-directory }}
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifact-name }}
           path: ${{ inputs.work-directory }}/${{ inputs.artifact-name }}
