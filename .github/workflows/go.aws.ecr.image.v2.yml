@@ -41,7 +41,7 @@ jobs:
           name: ${{ inputs.artifact-name }}
           path: ${{ inputs.work-directory }}
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.iam-role }}
           aws-region: ${{ inputs.aws-region }}
