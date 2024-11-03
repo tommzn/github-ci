@@ -1,0 +1,28 @@
+name: Go Lambda Image Build
+on:
+  workflow_call:
+`   inputs:
+      working-directory:
+        description: 'Directorz of Go sources'
+            default: './'
+            required: false
+            type: string
+        
+jobs:
+  go-test:
+    name: Go Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Get Go version
+        run: echo "goversion=`egrep -i '^go [1-2][.][0-9]+$' go.mod | sed 's/go //' | sed 's/$/.x/'`" >> $GITHUB_ENV
+        working-directory: ./lambda
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.goversion }}
+      - name: Run tests
+        run: go test -v  -covermode=count ./...
+        working-directory: ${{ inputs.working-directory }}
+      
