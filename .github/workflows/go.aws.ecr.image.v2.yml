@@ -24,12 +24,7 @@ on:
         default: 'build_artifact_bin'
         required: false
         type: string
-      ecr-path:
-        description: 'Path prefix for ECR'
-        default: ''
-        required: false
-        type: string
-    
+      
 jobs:
   ect-image-build:
     name: AWS ECR Image Build
