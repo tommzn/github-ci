@@ -6,10 +6,10 @@ on:
             default: './'
             required: false
             type: string
-        
+    
 jobs:
-  go-test:
-    name: Go Test
+  go-build:
+    name: Go Test & Binary Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,7 +21,12 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ env.goversion }}
-      - name: Run tests
-        run: go test -v  -covermode=count ./...
+      - name: Build Binary
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -v -o build_artifact_bin
         working-directory: ${{ inputs.working-directory }}
-      
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build_artifact_bin
+          path: ${{ inputs.working-directory }}/build_artifact_bin
+          retention-days: 1
