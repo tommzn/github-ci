@@ -3,10 +3,10 @@ on:
     inputs:
       working-directory:
         description: 'Directorz of Go sources'
-            default: './'
-            required: false
-            type: string
-        
+        default: './'
+        required: false
+        type: string
+    
 jobs:
   go-test:
     name: Go Test
