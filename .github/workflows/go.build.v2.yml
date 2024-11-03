@@ -6,6 +6,16 @@ on:
         default: './'
         required: false
         type: string
+      artifact-name:
+        description: 'File name of Go bin artifact'
+        default: 'build_artifact_bin'
+        required: false
+        type: string
+      artifact-path:
+        description: 'Upload path for Go bin artifact'
+        default: 'build_artifact_bin'
+        required: false
+        type: string
 
 jobs:
   go-build:
@@ -27,6 +37,6 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: build_artifact_bin
-          path: ${{ inputs.work-directory }}/build_artifact_bin
+          name: ${{ inputs.artifact-name }}
+          path: ${{ inputs.artifact-path }}
           retention-days: 1
