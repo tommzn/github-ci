@@ -1,0 +1,40 @@
+name: Go Lambda Image Build
+on:
+  workflow_call:
+    secrets:
+      iam-role:
+        description: 'Role for AWS ECR access'
+        required: true
+      ecr-registry-uri:
+        description: 'AWS ECR Registry URI'
+        required: true
+      lambda-function:
+        description: 'AWS Lambda Function Name'
+        required: true
+    inputs:
+      aws-region:
+        description: 'AWS Region'
+        default: 'eu-west-1'
+        required: false
+        type: string
+      
+jobs:
+  ect-image-build:
+    name: AWS Lambda Function Code Update
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.iam-role }}
+          aws-region: ${{ inputs.aws-region }}
+      - name: Update Lambda Function Code
+        run: |
+          aws lambda update-function-code \
+          --region ${{ inputs.aws-region }} \
+          --function-name ${{ secrets.lambda-function }} \
+          --image-uri ${{ secrets.ecr-registry-uri }}:${{ github.sha }}
+        
