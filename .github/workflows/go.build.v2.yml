@@ -1,7 +1,7 @@
 on:
   workflow_call:
     inputs:
-      working-directory:
+      work-directory:
         description: 'Directorz of Go sources'
         default: './'
         required: false
@@ -23,10 +23,10 @@ jobs:
           go-version: ${{ env.goversion }}
       - name: Build Binary
         run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -v -o build_artifact_bin
-        working-directory: ${{ inputs.working-directory }}
+        working-directory: ${{ inputs.work-directory }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: build_artifact_bin
-          path: ${{ inputs.working-directory }}/build_artifact_bin
+          path: ${{ inputs.work-directory }}/build_artifact_bin
           retention-days: 1

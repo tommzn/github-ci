@@ -1,7 +1,7 @@
 on:
   workflow_call:
     inputs:
-      working-directory:
+      work-directory:
         description: 'Directorz of Go sources'
         default: './'
         required: false
@@ -23,5 +23,5 @@ jobs:
           go-version: ${{ env.goversion }}
       - name: Run tests
         run: go test -v  -covermode=count ./...
-        working-directory: ${{ inputs.working-directory }}
+        working-directory: ${{ inputs.work-directory }}
       
