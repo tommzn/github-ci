@@ -1,0 +1,45 @@
+name: Go Lambda Image Build
+on:
+  workflow_call:
+    secrets:
+      iam-role:
+        description: 'Role for AWS ECR access'
+        required: true
+    inputs:
+      aws-region:
+        description: 'AWS Region'
+        default: 'eu-west-1'
+        required: false
+        type: string
+      work-directory:
+        description: 'Directorz of Go sources'
+        default: './'
+        required: false
+        type: string
+      artifact-name:
+        description: 'File name of Go bin artifact'
+        default: 'build_artifact_bin'
+        required: false
+        type: string
+    
+jobs:
+  ect-image-build:
+    name: GHCR Image Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Download Golang Binary
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: ${{ inputs.work-directory }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.iam-role }}
+          aws-region: ${{ inputs.aws-region }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        
