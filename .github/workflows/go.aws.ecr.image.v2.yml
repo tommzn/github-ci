@@ -5,8 +5,8 @@ on:
       iam-role:
         description: 'Role for AWS ECR access'
         required: true
-      ecr-registry:
-        description: 'AWS ECR Registry'
+      ecr-registry-uri:
+        description: 'AWS ECR Registry URI'
         required: true
     inputs:
       aws-region:
@@ -59,6 +59,6 @@ jobs:
           context: ${{ inputs.work-directory }}
           push: true
           tags: |
-            ${{ secrets.ecr-registry }}/${{ inputs.ecr-path }}${{ github.repository }}:${{ github.sha }}
-            ${{ secrets.ecr-registry }}/${{ inputs.ecr-path }}${{ github.repository }}:latest
+            ${{ secrets.ecr-registry-uri }}:${{ github.sha }}
+            ${{ secrets.ecr-registry-uri }}:latest
         
