@@ -5,6 +5,9 @@ on:
       iam-role:
         description: 'Role for AWS ECR access'
         required: true
+      ecr-registry:
+        description: 'AWS ECR Registry'
+        required: true
     inputs:
       aws-region:
         description: 'AWS Region'
@@ -19,6 +22,11 @@ on:
       artifact-name:
         description: 'File name of Go bin artifact'
         default: 'build_artifact_bin'
+        required: false
+        type: string
+      ecr-path:
+        description: 'Path prefix for ECR'
+        default: ''
         required: false
         type: string
     
@@ -45,4 +53,12 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
+      - name: Build Image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ inputs.work-directory }}
+          push: true
+          tags: |
+            ${{ secrets.ecr-registry }}/${{ inputs.ecr-path }}${{ github.repository }}:${{ github.sha }}
+            ${{ secrets.ecr-registry }}/${{ inputs.ecr-path }}${{ github.repository }}:latest
         
