@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Get Go version
         run: echo "goversion=`egrep -i '^go [1-2][.][0-9]+$' go.mod | sed 's/go //' | sed 's/$/.x/'`" >> $GITHUB_ENV
-        working-directory: ./lambda
+        working-directory: ${{ inputs.work-directory }}
       - name: Install Go
         uses: actions/setup-go@v5
         with:
