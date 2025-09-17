@@ -3,10 +3,6 @@ name: Multi Arch Image Build
 
 on:
   workflow_call:
-    secrets:
-      cr-pat:
-        description: 'Personal access token'
-        required: true
     inputs:
       work-directory:
         description: 'Directorz of Go sources'
