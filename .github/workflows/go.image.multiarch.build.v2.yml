@@ -9,6 +9,11 @@ on:
         default: './'
         required: false
         type: string
+      image-suffix:
+        description: 'Optional image suffix'
+        default: ''
+        required: false
+        type: string
     
 jobs:
   image_build:
@@ -43,6 +48,6 @@ jobs:
             Version=${{ env.VERSION_TAG }}
             GitCommit=${{ github.sha }}
           tags: |
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
-            ghcr.io/${{ github.repository }}:${{ env.VERSION_TAG }}
-            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}${{ inputs.image-suffix }}:${{ github.sha }}
+            ghcr.io/${{ github.repository }}${{ inputs.image-suffix }}:${{ env.VERSION_TAG }}
+            ghcr.io/${{ github.repository }}${{ inputs.image-suffix }}:latest
