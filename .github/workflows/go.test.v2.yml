@@ -17,7 +17,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
       - name: Get Go version
-        run: echo "goversion=`egrep -i '^go [1-2][.][0-9]+$' go.mod | sed 's/go //' | sed 's/$/.x/'`" >> $GITHUB_ENV
+        run: |
+          goversion=$(egrep -i '^go [1-2][.][0-9]+([.][0-9]+)?$' go.mod | awk '{print $2}' | cut -d. -f1,2 | sed 's/$/.x/')
+          if [ -z "$goversion" ]; then
+            echo "::error::Could not determine Go version from go.mod - check that it has a 'go X.Y' or 'go X.Y.Z' directive" >&2
+            exit 1
+          fi
+          echo "goversion=$goversion" >> $GITHUB_ENV
         working-directory: ${{ inputs.work-directory }}
       - name: Install Go
         uses: actions/setup-go@v7
