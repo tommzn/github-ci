@@ -15,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Get Go version
-        run: echo "goversion=`egrep -i '^go [1-2][.][0-9]+$' go.mod | sed 's/go //' | sed 's/$/.x/'`" >> $GITHUB_ENV
+        run: echo "goversion=`egrep -i '^go [1-2][.][0-9]+([.][0-9]+)?$' go.mod | awk '{print $2}' | cut -d. -f1,2 | sed 's/$/.x/'`" >> $GITHUB_ENV
       - name: Install Go
         uses: actions/setup-go@v5
         with:
