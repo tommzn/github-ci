@@ -15,12 +15,12 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Get Go version
         run: echo "goversion=`egrep -i '^go [1-2][.][0-9]+$' go.mod | sed 's/go //' | sed 's/$/.x/'`" >> $GITHUB_ENV
         working-directory: ${{ inputs.work-directory }}
       - name: Install Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version: ${{ env.goversion }}
       - name: Run tests
