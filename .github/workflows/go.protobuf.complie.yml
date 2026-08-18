@@ -26,6 +26,7 @@ jobs:
     permissions:
       contents: read
       packages: read
+      actions: write
     container:
       image: ghcr.io/tommzn/github-ci/images/protobuf-compiler-go-alpine
       credentials:

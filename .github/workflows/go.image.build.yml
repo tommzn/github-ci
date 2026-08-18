@@ -13,6 +13,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      actions: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -46,6 +47,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      actions: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

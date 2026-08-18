@@ -14,6 +14,7 @@ jobs:
     permissions:
       contents: read
       security-events: write
+      actions: write
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
