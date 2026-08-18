@@ -6,6 +6,9 @@ jobs:
   go-build:
     name: Go Test & Binary Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -29,7 +32,7 @@ jobs:
         run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -v -o build_artifact_bin
         working-directory: ./lambda
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build_artifact_bin
           path: ./lambda/build_artifact_bin
@@ -39,11 +42,14 @@ jobs:
     name: Build and Deploy Docker Image
     needs: [go-build]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Download Golang Binary
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: build_artifact_bin
           path: lambda
@@ -54,7 +60,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./lambda
           push: true

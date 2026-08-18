@@ -15,7 +15,7 @@ on:
         required: false
         type: string
       work-directory:
-        description: 'Directorz of Go sources'
+        description: 'Directory of Go sources'
         default: './'
         required: false
         type: string

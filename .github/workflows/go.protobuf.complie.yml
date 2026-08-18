@@ -10,10 +10,10 @@ on:
         description: 'Slack channel id a success/error message should be send to.'
         required: false
       slack-webhook:
-        description: 'Slack webhock for publishing messages.'
+        description: 'Slack webhook for publishing messages.'
         required: false
       slack-bottoken:
-        description: 'Slack bot toekn for publishing messages.'
+        description: 'Slack bot token for publishing messages.'
         required: false
     inputs:
       upload-artifact:
@@ -23,7 +23,10 @@ jobs:
   compile-go:
     name: Compile for Golang
     runs-on: ubuntu-latest
-    container: 
+    permissions:
+      contents: read
+      packages: read
+    container:
       image: ghcr.io/tommzn/github-ci/images/protobuf-compiler-go-alpine
       credentials:
         username: ${{ github.actor }}
@@ -34,7 +37,7 @@ jobs:
           protoc --version 
           go version
       - name: Checkout Protobuf event defs
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
       - name: Compile
@@ -42,7 +45,7 @@ jobs:
           protoc --go_out=./ *.proto
       - name: Upload Golang artifacts
         if: inputs.upload-artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: golang-events
           path: ./*.pb.go

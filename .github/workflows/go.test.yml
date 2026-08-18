@@ -9,9 +9,11 @@ jobs:
       matrix:
         platform: [ubuntu-latest]
     runs-on: ${{ matrix.platform }}
+    permissions:
+      contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Get Go version
         run: |
           goversion=$(egrep -i '^go [1-2][.][0-9]+([.][0-9]+)?$' go.mod | awk '{print $2}' | cut -d. -f1,2 | sed 's/$/.x/')
@@ -21,7 +23,7 @@ jobs:
           fi
           echo "goversion=$goversion" >> $GITHUB_ENV
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v5
         with:
           go-version: ${{ env.goversion }}
       - name: Run tests
