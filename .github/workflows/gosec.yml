@@ -37,6 +37,7 @@ jobs:
           SLACK_USERNAME: "GoSec Scan"
           MSG_MINIMAL: actions url
       - name: Upload Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: gosec.results.html
