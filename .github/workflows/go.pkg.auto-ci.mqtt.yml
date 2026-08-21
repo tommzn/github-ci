@@ -8,9 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mqtt:
-        image: eclipse-mosquitto:1.6
+        image: eclipse-mosquitto:2
         ports:
           - 1883:1883
+    permissions:
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,6 +35,8 @@ jobs:
     name: Go Package Release
     needs: [test]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
