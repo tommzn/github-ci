@@ -15,7 +15,7 @@ jobs:
           - 5432:5432
     permissions:
       contents: read
-      statuses: write
+      checks: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
