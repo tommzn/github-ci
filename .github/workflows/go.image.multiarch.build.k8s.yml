@@ -3,11 +3,7 @@ name: Multi Arch Image Build
 
 on:
   workflow_call:
-    secrets:
-      cr-pat:
-        description: 'Personal access token'
-        required: true
-    
+
 jobs:
   image_build:
     runs-on: ubuntu-latest
