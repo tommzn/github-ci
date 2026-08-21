@@ -1,4 +1,4 @@
-FROM golang:1.24
+FROM golang:1.24-alpine
 
-RUN apt-get update; apt-get install -y ca-certificates openssl protobuf-compiler
+RUN apk add --no-cache ca-certificates openssl protobuf
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
